@@ -10,15 +10,27 @@
     <form id="form1" runat="server">
     <div>
     
-        <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataSourceID="SqlDataSource1">
-            <Columns>
-                <asp:BoundField DataField="tagname" HeaderText="tagname" SortExpression="tagname" />
-                <asp:BoundField DataField="tagdesc" HeaderText="tagdesc" SortExpression="tagdesc" />
-            </Columns>
-        </asp:GridView>
-        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:EdTechConnectionString %>" SelectCommand="SELECT [tagname], [tagdesc] FROM [Tag]"></asp:SqlDataSource>
-    
-    </div>
+<asp:GridView ID="GridView1" runat="server" AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False" DataSourceID="SqlDataSource1" GridLines="None" CellPadding="4" ForeColor="#333333" EmptyDataText="There are no data records to display." OnRowDataBound="GridView1_RowDataBound">
+    <Columns>
+      <asp:BoundField DataField="tagname" HeaderText="tagname" SortExpression="tagname" ItemStyle-Width="200px">
+      </asp:BoundField>
+      <asp:BoundField DataField="tagdesc" HeaderText="tagdesc" SortExpression="tagdesc"></asp:BoundField>
+    </Columns>
+  </asp:GridView>
+  <asp:DetailsView ID="DetailsView1" runat="server" AutoGenerateRows="False" DataSourceID="SqlDataSource1" DefaultMode="Insert" Height="50px" Width="125px">
+    <Fields>
+      <asp:BoundField DataField="tagname" HeaderText="Tag Name" SortExpression="tagname" />
+      <asp:BoundField DataField="tagdesc" HeaderText="Tag Description" SortExpression="tagdesc" />
+    </Fields>
+  </asp:DetailsView>
+  <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:EdTechConnectionString2 %>" SelectCommand="SELECT [tagname], [tagdesc] FROM [Tag]" OnDeleted="SqlDataSource1_Deleted">
+  </asp:SqlDataSource>
+  <script>
+    $(function ()
+    {
+      $('.GridView tr:odd:not(.GridViewPagerStyle)').addClass('GridViewAlternatingRowStyle');
+    });
+  </script>    </div>
     </form>
 </body>
 </html>
