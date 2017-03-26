@@ -21,9 +21,24 @@
     <Fields>
       <asp:BoundField DataField="tagname" HeaderText="Tag Name" SortExpression="tagname" />
       <asp:BoundField DataField="tagdesc" HeaderText="Tag Description" SortExpression="tagdesc" />
+        <asp:CommandField ShowInsertButton="true" />
     </Fields>
   </asp:DetailsView>
-  <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:EdTechConnectionString2 %>" SelectCommand="SELECT [tagname], [tagdesc] FROM [Tag]" OnDeleted="SqlDataSource1_Deleted">
+  <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
+      ConnectionString="<%$ ConnectionStrings:EdTechConnectionString2 %>" 
+      SelectCommand="SELECT [tagname], [tagdesc] FROM [Tag]" OnDeleted="SqlDataSource1_Deleted" 
+      InsertCommand="INSERT INTO [Tag] VALUES (@tagName,@tagDesc)">
+    <DeleteParameters>
+      <asp:Parameter Name="id" Type="Int32" />
+    </DeleteParameters>
+    <InsertParameters>
+      <asp:Parameter Name="tagName" Type="String" />
+      <asp:Parameter Name="tagDesc" Type="String" />
+    </InsertParameters>
+    <UpdateParameters>
+      <asp:Parameter Name="tagName" Type="String" />
+      <asp:Parameter Name="tagDesc" Type="String" />
+    </UpdateParameters>
   </asp:SqlDataSource>
   <script>
     $(function ()
